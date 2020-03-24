@@ -3,8 +3,17 @@ const crypto = require('crypto');
 
 const connection = require('./database/connection');
 
-routes.get('/', (req, res) => {
-  return res.json({ message: 'Hello World' });
+routes.get('/ongs', async (req, res) => {
+  try {
+    const ongs = await connection('ongs').select('*');
+
+    return res.json(ongs);
+  } catch (err) {
+    const error = {
+      message: "Couldn't list the ONGs",
+    };
+    return res.json({ error });
+  }
 });
 
 routes.post('/ongs', async (req, res) => {
