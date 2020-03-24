@@ -3,7 +3,16 @@ const connection = require('../database/connection');
 module.exports = {
   async index(req, res) {
     try {
-      const incidents = await connection('incidents').select('*');
+      const { page = 1 } = req.query;
+
+      const [count] = await connection('incidents').count();
+
+      const incidents = await connection('incidents')
+        .select('*')
+        .limit(5)
+        .offset((page - 1) * 5);
+
+      res.header('X-Total-Count', count['count(*)']);
 
       return res.json(incidents);
     } catch (err) {
