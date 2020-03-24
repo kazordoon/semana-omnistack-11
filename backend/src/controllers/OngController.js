@@ -12,7 +12,7 @@ module.exports = {
       const error = {
         message: "Couldn't list the ONGs",
       };
-      return res.json({ error });
+      return res.status(500).json({ error });
     }
   },
   async create(req, res) {
@@ -35,7 +35,7 @@ module.exports = {
       const error = {
         message: "Couldn't create an account",
       };
-      return res.json({ error });
+      return res.status(400).json({ error });
     }
   }
 }

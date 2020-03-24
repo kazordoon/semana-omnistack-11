@@ -10,7 +10,7 @@ module.exports = {
       const error = {
         message: "Couldn't list the incidents",
       };
-      return res.json(error);
+      return res.status(500).json(error);
     }
   },
   async create(req, res) {
@@ -27,7 +27,7 @@ module.exports = {
       const error = {
         message: "Couldn't create a new incident",
       };
-      return res.json(error);
+      return res.status(406).json(error);
     }
   },
   async delete(req, res) {
@@ -56,7 +56,7 @@ module.exports = {
       const error = {
         message: "Couldn't delete the incident",
       };
-      return res.json(error);
+      return res.status(406).json(error);
     }
   }
 }
