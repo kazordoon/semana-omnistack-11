@@ -35,6 +35,16 @@ module.exports = {
       const { title, description, value } = req.body;
       const ong_id = req.headers.authorization;
 
+      const [ong]= await connection('ongs')
+        .select('*').where({ id: ong_id });
+      
+      if (!ong) {
+        const error = {
+          message: "There's no ONG with the given ID",
+        };
+        return res.status(406).json({ error });
+      }
+
       const data = { title, description, value, ong_id };
 
       const [id] = await connection('incidents').insert(data);
@@ -56,6 +66,13 @@ module.exports = {
         .select('ong_id')
         .where({ id })
         .first();
+
+      if (!incident) {
+        const error = {
+          message: "There's no incident with the given ID",
+        };
+        return res.status(404).json({ error });
+      }
 
       if (incident.ong_id !== ong_id) {
         const error = {
