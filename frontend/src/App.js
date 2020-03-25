@@ -1,11 +1,11 @@
 import React from 'react';
 
+import './global.css';
+
 function App() {
   return (
     <div className="App">
-      <p>
-        Hello Omnistack
-      </p>
+	    <h1>Hello World</h1>
     </div>
   );
 }
